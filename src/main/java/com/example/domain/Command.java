@@ -21,4 +21,9 @@ public class Command {
 		this.value = value;
 	}
 
+	@Override
+	public String toString() {
+		return "Command [name=" + name + ", value=" + value + "]";
+	}
+
 }
