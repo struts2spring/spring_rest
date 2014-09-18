@@ -26,22 +26,23 @@ public class ShellRestController {
 	private ShellService shellService;
 	private Logger logger = LoggerFactory.getLogger(ShellRestController.class);
 
-	@RequestMapping(value = "/shell/{command}", method = RequestMethod.GET)
+	@RequestMapping(value = "/shell/command", method = RequestMethod.POST, produces = { "application/json", "application/xml" })
 	@ResponseStatus(HttpStatus.OK)
-	public List<FileInformation> getBook(@PathVariable("command") String cmd) {
-		logger.debug("Provider has received request to get command: " + cmd);
-		System.out.println(cmd);
+	@ResponseBody
+	public FileInformation getFileInfo(@RequestBody Command command) {
+		logger.debug("Provider has received request to get command: " + command);
+		System.out.println(command);
 
-		return shellService.listAll(cmd);
+		return shellService.getFileInfo(command.getValue());
 	}
 
-	@RequestMapping(value = "/command/cmd", method = RequestMethod.POST,  produces={"application/json","application/xml"})
+	@RequestMapping(value = "/command/cmd", method = RequestMethod.POST, produces = { "application/json", "application/xml" })
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public List<FileInformation> getAllFlies(@RequestBody Command command) {
 		logger.debug("Provider has received request to get command: " + command);
 		System.out.println(command);
 
-		return shellService.listAll(command.getValue());	
+		return shellService.listAll(command.getValue());
 	}
 }
