@@ -1,5 +1,6 @@
 package com.example.domain;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +42,17 @@ public class FileInformation {
 	private Date lastModified;
 
 	private List<Object> children;
+
+	/**
+	 * File permission as a array in unix style.
+	 * <ul>
+	 * <li>xxx : 7 means read , write ,</li>
+	 * execute.
+	 * <li>xx- : 6 means read, write , not execute.</li>
+	 * </ul>
+	 * 
+	 */
+	private String[] filePermission;
 
 	public FileInformation() {
 	}
@@ -114,10 +126,19 @@ public class FileInformation {
 		this.children = children;
 	}
 
+	public String[] getFilePermission() {
+		return filePermission;
+	}
+
+	public void setFilePermission(String[] filePermission) {
+		this.filePermission = filePermission;
+	}
+
 	@Override
 	public String toString() {
 		return "FileInformation [id=" + id + ", name=" + name + ", type=" + type + ", fullPath=" + fullPath + ", size=" + size
-				+ ", isDirectory=" + isDirectory + ", lastModified=" + lastModified + ", children=" + children + "]";
+				+ ", isDirectory=" + isDirectory + ", lastModified=" + lastModified + ", children=" + children + ", filePermission="
+				+ Arrays.toString(filePermission) + "]";
 	}
 
 }

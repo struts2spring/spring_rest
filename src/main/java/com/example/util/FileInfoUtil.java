@@ -39,6 +39,25 @@ public class FileInfoUtil {
 						double kilobytes = (bytes / 1024);
 						fileInformation.setSize("" + kilobytes + " KB");
 						fileInformation.setType("file");
+						String[] filePermission = new String[3];
+						File file=listOfFiles[i];
+						fileInformation.setFilePermission(filePermission);
+						if (file.canRead()) {
+							filePermission[0] = "x";
+						} else {
+							filePermission[0] = "-";
+						}
+						if (file.canWrite()) {
+							filePermission[1] = "x";
+						} else {
+							filePermission[1] = "-";
+						}
+						if (file.canExecute()) {
+							filePermission[2] = "x";
+						} else {
+							filePermission[2] = "-";
+						}
+						fileInformation.setFilePermission(filePermission);
 					} else {
 						fileInformation.setType("Directory");
 						fileInformation.setIsDirectory("d");
@@ -57,7 +76,7 @@ public class FileInfoUtil {
 		FileInformation fileInformation = new FileInformation();
 		if (absoluteFilePath != null) {
 			File file = new File(absoluteFilePath);
-System.out.println(file.exists());
+			System.out.println(file.exists());
 			if (file.exists()) {
 				fileInformation.setName(file.getName());
 				fileInformation.setId(1);
@@ -67,6 +86,24 @@ System.out.println(file.exists());
 				double kilobytes = (bytes / 1024);
 				fileInformation.setSize("" + kilobytes + " KB");
 				fileInformation.setType("file");
+				String[] filePermission = new String[3];
+				fileInformation.setFilePermission(filePermission);
+				if (file.canRead()) {
+					filePermission[0] = "x";
+				} else {
+					filePermission[0] = "-";
+				}
+				if (file.canWrite()) {
+					filePermission[1] = "x";
+				} else {
+					filePermission[1] = "-";
+				}
+				if (file.canExecute()) {
+					filePermission[2] = "x";
+				} else {
+					filePermission[2] = "-";
+				}
+				fileInformation.setFilePermission(filePermission);
 			}
 		}
 
