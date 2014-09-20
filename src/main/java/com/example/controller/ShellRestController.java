@@ -26,7 +26,16 @@ public class ShellRestController {
 	private ShellService shellService;
 	private Logger logger = LoggerFactory.getLogger(ShellRestController.class);
 
-	@RequestMapping(value = "/shell/command", method = RequestMethod.POST, produces = { "application/json", "application/xml" })
+	/**
+	 * This method handles single file info.
+	 * 
+	 * @author vijay kumar keshri
+	 * @since 20-Sep-2014
+	 * 
+	 * @param command
+	 * @return
+	 */
+	@RequestMapping(value = "/shell/command", method = RequestMethod.POST, produces = { "application/json" })
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public FileInformation getFileInfo(@RequestBody Command command) {
@@ -36,7 +45,16 @@ public class ShellRestController {
 		return shellService.getFileInfo(command.getValue());
 	}
 
-	@RequestMapping(value = "/command/cmd", method = RequestMethod.POST, produces = { "application/json", "application/xml" })
+	/**
+	 * This method provide information of a directory as a tree.
+	 * 
+	 * @author vijay kumar keshri
+	 * @since 20-Sep-2014
+	 * 
+	 * @param command
+	 * @return
+	 */
+	@RequestMapping(value = "/command/cmd", method = RequestMethod.POST, produces = { "application/json" })
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public List<FileInformation> getAllFlies(@RequestBody Command command) {

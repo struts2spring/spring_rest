@@ -34,29 +34,30 @@ public class FileInfoUtil {
 					fileInformation.setId(i);
 					fileInformation.setFullPath(listOfFiles[i].getAbsolutePath());
 					fileInformation.setLastModified(new Date(listOfFiles[i].lastModified()));
+					double bytes = listOfFiles[i].length();
+					double kilobytes = (bytes / 1024);
+					fileInformation.setSize("" + kilobytes + " KB");
+					fileInformation.setType("file");
+					String[] filePermission = new String[3];
+					File file = listOfFiles[i];
+					fileInformation.setFilePermission(filePermission);
+					if (file.canRead()) {
+						filePermission[0] = "x";
+					} else {
+						filePermission[0] = "-";
+					}
+					if (file.canWrite()) {
+						filePermission[1] = "x";
+					} else {
+						filePermission[1] = "-";
+					}
+					if (file.canExecute()) {
+						filePermission[2] = "x";
+					} else {
+						filePermission[2] = "-";
+					}
 					if (listOfFiles[i].isFile()) {
-						double bytes = listOfFiles[i].length();
-						double kilobytes = (bytes / 1024);
-						fileInformation.setSize("" + kilobytes + " KB");
-						fileInformation.setType("file");
-						String[] filePermission = new String[3];
-						File file=listOfFiles[i];
-						fileInformation.setFilePermission(filePermission);
-						if (file.canRead()) {
-							filePermission[0] = "x";
-						} else {
-							filePermission[0] = "-";
-						}
-						if (file.canWrite()) {
-							filePermission[1] = "x";
-						} else {
-							filePermission[1] = "-";
-						}
-						if (file.canExecute()) {
-							filePermission[2] = "x";
-						} else {
-							filePermission[2] = "-";
-						}
+						
 						fileInformation.setFilePermission(filePermission);
 					} else {
 						fileInformation.setType("Directory");
@@ -72,7 +73,16 @@ public class FileInfoUtil {
 		return lst;
 	}
 
-	public FileInformation getFileInfo(String absoluteFilePath) {
+	/**
+	 * This method provide File information for a given absolute file path.
+	 * 
+	 * @author vijay
+	 * 
+	 * @param absoluteFilePath
+	 * @return FileInformation
+	 * @throws Exception 
+	 */
+	public FileInformation getFileInfo(String absoluteFilePath) throws Exception {
 		FileInformation fileInformation = new FileInformation();
 		if (absoluteFilePath != null) {
 			File file = new File(absoluteFilePath);
@@ -105,6 +115,8 @@ public class FileInfoUtil {
 				}
 				fileInformation.setFilePermission(filePermission);
 			}
+		}else {
+			throw new Exception("File does not exist");
 		}
 
 		return fileInformation;
